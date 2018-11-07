@@ -1,0 +1,9 @@
+	.box{
+		margin-left: 30px;
+		width: 500px;
+		display: inline-block;
+		vertical-align: top;
+	}
+	.error{
+		color: red;
+	}

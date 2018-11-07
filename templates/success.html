@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>success</title>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<style type="text/css">
+	span{
+		font-size: 12px;
+	}
+	.box{
+		width: 500px;
+		margin: auto;
+		display: inline-block;
+		vertical-align: top;
+	}
+</style>
+</head>
+<body>
+	<div class="container">
+		<nav class="navbar navbar-inverse">
+		  <div class="container-fluid">
+		    <div class="navbar-header">
+		      <a class="navbar-brand" href="#">The Wall</a>
+		    </div>
+		    <ul class="nav navbar-nav">
+		      <li class="active"><a href="#">Home</a></li>
+		      <li><a href="/logout">Logout</a></li>
+
+		    </ul>
+		  </div>
+		</nav>
+
+		<h3>Welcome, you've been logged in, {{session['first_name']}}!</h3>
+		<div class="box">
+			<h3>You have {{num_of_messages}} message(s)!</h3>
+
+			{% for message in recieved_messages %}
+			<h4>{{message['first_name']}} said <span>({{message['created_at']}})</span>: </h4>
+			<p>"{{message['message']}}" <a href="/delete/{{message['id']}}">
+					<img src="/static/trashcan.png" alt="trashcan" style="width: 15px">
+				</a>
+			</p>
+			
+			{% endfor %}
+		</div>
+		<div class="box">
+			<h3>Send Message</h3>
+			<h6>You have sent {{messages_sent}} message(s)</h6>
+			{% for name in message_chart %}
+			<form action="/send" method="POST">
+			  <div class="form-group">
+			    <label for="exampleFormControlTextarea1">{{ name['first_name'] }}</label>
+			    <textarea class="form-control" name="message" id="exampleFormControlTextarea1" rows="3"></textarea>
+			  </div>
+			  <input type="hidden" name="reciever_id" value="{{name['id']}}">
+			   <button type="submit" class="btn btn-dark">Send</button>
+			  <p></p>
+			</form>
+			{% endfor %}
+		</div>
+	</div>
+	</div>
+</body>
+</html>
